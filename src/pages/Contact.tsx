@@ -4,8 +4,6 @@ import { ArrowLeft, Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -63,8 +61,6 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar variant="main" />
-
       {/* Breadcrumb */}
       <div className="pt-24 pb-4 bg-white border-b">
         <div className="container-custom">
@@ -280,8 +276,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

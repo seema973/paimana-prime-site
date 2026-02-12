@@ -39,9 +39,13 @@ const Footer = () => {
           <div>
             <div className="mb-4">
               <img
-                src="/navbar_logo.png"
+                src="https://www.mospi.gov.in/uploads/primaryLogo/primaryLogo-1dee0dd9-99fd-4b8f-a352-7a53e0655404.svg"
                 alt="Government of India - Ministry of Statistics and Programme Implementation"
                 className="h-12 md:h-14 w-auto"
+                style={{
+                  backgroundColor: 'transparent',
+                  background: 'transparent',
+                }}
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                   (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="text-white font-bold text-lg">GOI</span>';

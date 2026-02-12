@@ -1,8 +1,35 @@
 import { Link } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import { useState, useRef, useEffect } from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
 
 const Home = () => {
+  const banners = [
+    {
+      id: 1,
+      image: 'https://www.mospi.gov.in/uploads/OrganizationImage/home_banner_en_1770790289515_vande%20mataram.jpeg',
+    },
+    {
+      id: 2,
+      image: '/banner2.png',
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselApiRef = useRef<any>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      // Cleanup interval on unmount
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
   const keyInitiatives = [
     {
       title: 'NIE-I State',
@@ -70,119 +97,87 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center pt-24 pb-16 overflow-hidden"
-        style={{
-          background: 'linear-gradient(135deg, #e8f4fc 0%, #f0f4f8 50%, #ffffff 100%)',
-        }}
-      >
-        <div className="container-custom relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="space-y-8">
-              {/* PAIMANA Logo */}
-              <div className="mb-6">
-                <img
-                  src="/logo3.svg"
-                  alt="PAIMANA"
-                  className="h-20 md:h-24 lg:h-28 w-auto"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
+      {/* Hero Section with Banner Carousel */}
+      <section className="relative w-full">
+        <Carousel
+          opts={{
+            align: 'start',
+            loop: true,
+          }}
+          setApi={(api) => {
+            carouselApiRef.current = api;
+            if (api) {
+              api.on('select', () => {
+                setCurrentIndex(api.selectedScrollSnap());
+              });
+              
+              // Clear any existing interval
+              if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+              }
+              
+              // Start auto-play
+              intervalRef.current = setInterval(() => {
+                if (carouselApiRef.current) {
+                  carouselApiRef.current.scrollNext();
+                }
+              }, 5000); // 5 seconds
+            }
+          }}
+          className="w-full h-full"
+        >
+          <CarouselContent className="h-[70vh] -ml-0">
+            {banners.map((banner) => (
+              <CarouselItem key={banner.id} className="h-full pl-0 basis-full">
+                <div
+                  className="w-full h-full"
+                  style={{
+                    backgroundImage: `url(${banner.image})`,
+                    backgroundSize: banner.image === '/banner2.png' ? 'cover' : 'contain',
+                    backgroundPosition: banner.image === '/banner2.png' ? 'center center' : 'top center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: banner.image === '/banner2.png' ? 'transparent' : '#f5f5f5',
+                    minHeight: '70vh',
                   }}
                 />
-              </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
 
-              {/* Subtitle */}
-              <div className="space-y-2">
-                <p className="text-xl md:text-2xl text-paimana-blue font-medium">
-                  Project Analytics, Monitoring & Assessment Platform
-                </p>
-              </div>
-
-              {/* Description */}
-              <p className="text-lg text-gray-700 leading-relaxed max-w-xl">
-                Integrated platform for project analytics, monitoring and assessment of key initiatives of the Government of India.
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4">
-                <Link 
-                  to="/nie-i-state" 
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg font-semibold text-base transition-all duration-300"
-                  style={{
-                    background: 'linear-gradient(135deg, #f4b942 0%, #e5a532 100%)',
-                    color: '#0f2d52',
-                    boxShadow: '0 4px 15px rgba(244, 185, 66, 0.3)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(244, 185, 66, 0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(244, 185, 66, 0.3)';
-                  }}
-                >
-                  Explore Projects
-                </Link>
-                <Link 
-                  to="/public-dashboard" 
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg font-semibold text-base transition-all duration-300 border-2"
-                  style={{
-                    borderColor: '#1e4a7e',
-                    background: '#1e4a7e',
-                    color: 'white',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.background = '#2d6da8';
-                    e.currentTarget.style.borderColor = '#2d6da8';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.background = '#1e4a7e';
-                    e.currentTarget.style.borderColor = '#1e4a7e';
-                  }}
-                >
-                  Public Dashboard
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Content - All Projects */}
-            <div className="relative hidden lg:block">
-              <div className="grid grid-cols-3 gap-2 xl:gap-2.5 max-w-lg">
-                {keyInitiatives.map((initiative) => (
-                  <Link
-                    key={initiative.title}
-                    to={initiative.path}
-                    className="group relative rounded-md overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
-                  >
-                    {/* Image Background */}
-                    <div className="relative aspect-square overflow-hidden bg-gray-100">
-                      <img
-                        src={initiative.image}
-                        alt={initiative.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {/* Gradient Overlay */}
-                      <div className={`absolute inset-0 bg-gradient-to-t ${initiative.gradient} opacity-70 group-hover:opacity-80 transition-opacity duration-300`} />
-                      
-                      {/* Content */}
-                      <div className="absolute inset-0 p-2 flex flex-col justify-end text-white">
-                        {/* Title */}
-                        <h3 className="font-poppins font-semibold text-[10px] xl:text-xs mb-0.5 leading-tight">{initiative.title}</h3>
-                        
-                        {/* Description */}
-                        <p className="text-[9px] xl:text-[10px] text-white/90 leading-tight line-clamp-2">{initiative.description}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
+        {/* Project Cards */}
+        <div className="container-custom -mt-24 relative z-10 pb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-1">
+            {keyInitiatives.map((project) => (
+              <Link
+                key={project.title}
+                to={project.path}
+                className="group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100"
+              >
+                {/* Image Area */}
+                <div className={`relative h-32 overflow-hidden bg-gradient-to-br ${project.gradient}`}>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+                
+                {/* Content */}
+                <div className="p-4">
+                  <h3 className="font-poppins font-semibold text-paimana-dark-blue mb-2 text-base">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
+                    {project.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -229,8 +224,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

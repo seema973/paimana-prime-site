@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Download, FileText, BookOpen, Video, ExternalLink } from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 const UserManuals = () => {
   useEffect(() => {
@@ -68,8 +66,6 @@ const UserManuals = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar variant="main" />
-
       {/* Breadcrumb */}
       <div className="pt-24 pb-4 bg-white border-b">
         <div className="container-custom">
@@ -213,8 +209,6 @@ const UserManuals = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

@@ -9,8 +9,6 @@ import {
   Rocket,
   Clock
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 interface ProjectData {
   id: string;
@@ -183,8 +181,6 @@ const ProjectPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar variant="project" />
-      
       {/* Main Content Section */}
       <section className="pt-24 py-12 bg-white">
         <div className="container-custom">
@@ -336,8 +332,6 @@ const ProjectPage = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
 
       {/* Animation Styles */}
       <style>{`

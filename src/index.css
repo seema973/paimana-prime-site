@@ -133,6 +133,18 @@
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
+  /* Logo background removal */
+  img[src*="primaryLogo"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    mix-blend-mode: normal;
+  }
+
+  img[src*="primaryLogo"] svg {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
 }
 
 @layer utilities {
@@ -211,6 +223,26 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+  display: flex;
+  gap: 2rem;
+  will-change: transform;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
 }
 
 /* Scrollbar Styling */

@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Target, Eye, Users, Award, TrendingUp } from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 const About = () => {
   useEffect(() => {
@@ -41,8 +39,6 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar variant="main" />
-
       {/* Breadcrumb */}
       <div className="pt-24 pb-4 bg-white border-b">
         <div className="container-custom">
@@ -257,8 +253,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

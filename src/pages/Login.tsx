@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { User, Lock, ChevronDown, ArrowLeft } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -32,8 +30,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar variant="main" />
-
       {/* Breadcrumb */}
       <div className="pt-24 pb-4 bg-white border-b">
         <div className="container-custom">
@@ -236,8 +232,6 @@ const Login = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };
