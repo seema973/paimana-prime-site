@@ -12,7 +12,8 @@ const Footer = () => {
   const projects = [
     { label: 'NIE-I State', path: '/nie-i-state' },
     { label: 'NIE-I Ministry', path: '/nie-i-ministry' },
-    { label: 'Project Monitoring', path: '/project-monitoring' },
+    { label: 'Project Monitoring (Input CUF FORM)', path: '/project-monitoring-input' },
+    { label: 'Project Monitoring (Output Flash Reports)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
     { label: 'Performance Monitoring', path: '/performance-monitoring' },
     { label: 'TPP', path: '/tpp' },
   ];
@@ -88,13 +89,25 @@ const Footer = () => {
             <ul className="space-y-2">
               {projects.map((project) => (
                 <li key={project.path}>
-                  <Link
-                    to={project.path}
-                    className="text-white/80 hover:text-white transition-colors inline-flex items-center gap-2 group"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-white/40 group-hover:bg-white transition-colors" />
-                    {project.label}
-                  </Link>
+                  {project.path.startsWith('http') ? (
+                    <a
+                      href={project.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/80 hover:text-white transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/40 group-hover:bg-white transition-colors" />
+                      {project.label}
+                    </a>
+                  ) : (
+                    <Link
+                      to={project.path}
+                      className="text-white/80 hover:text-white transition-colors inline-flex items-center gap-2 group"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/40 group-hover:bg-white transition-colors" />
+                      {project.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

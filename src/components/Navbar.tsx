@@ -9,22 +9,26 @@ interface NavbarProps {
 const projectLinks = [
   { label: 'NIE-I State', path: '/nie-i-state' },
   { label: 'NIE-I Ministry', path: '/nie-i-ministry' },
-  { label: 'Project Monitoring', path: '/project-monitoring' },
+  { label: 'Project Monitoring (Input CUF FORM)', path: '/project-monitoring-input' },
+  { label: 'Project Monitoring (Output Flash Reports)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
   { label: 'Performance Monitoring', path: '/performance-monitoring' },
   { label: 'TPP', path: '/tpp' },
+];
+
+const ministryLinks = [
+  { label: 'Meet the Secretary', path: '/about#meet-the-secretary' },
+  { label: 'Organization Structure', path: '/about#organization-structure' },
+  { label: "Who's Who", path: '/about#whos-who' },
 ];
 
 const Navbar = ({ variant = 'main' }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProjectsOpen, setIsProjectsOpen] = useState(false);
   const [isMobileProjectsOpen, setIsMobileProjectsOpen] = useState(false);
+  const [isMobileMinistryOpen, setIsMobileMinistryOpen] = useState(false);
   const [isMinistryOpen, setIsMinistryOpen] = useState(false);
   const [isOfferingsOpen, setIsOfferingsOpen] = useState(false);
-  const [isDocumentsOpen, setIsDocumentsOpen] = useState(false);
-  const [isMediaOpen, setIsMediaOpen] = useState(false);
-  const [isConnectOpen, setIsConnectOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const desktopNavRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -37,29 +41,28 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setIsProjectsOpen(false);
+      if (desktopNavRef.current && !desktopNavRef.current.contains(e.target as Node)) {
         setIsMinistryOpen(false);
         setIsOfferingsOpen(false);
-        setIsDocumentsOpen(false);
-        setIsMediaOpen(false);
-        setIsConnectOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const mainNavItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Dashboard', path: '/public-dashboard' },
-    { label: 'User Manual', path: '/user-manuals' },
-    { label: 'About Us', path: '/about' },
-  ];
-
   const isActive = (path: string) => {
     if (path.startsWith('#')) return false;
     return location.pathname === path;
+  };
+
+  const closeAllDesktopDropdowns = () => {
+    setIsMinistryOpen(false);
+    setIsOfferingsOpen(false);
+  };
+
+  const toggleDesktopDropdown = (dropdown: 'ministry' | 'offerings') => {
+    setIsMinistryOpen((prev) => (dropdown === 'ministry' ? !prev : false));
+    setIsOfferingsOpen((prev) => (dropdown === 'offerings' ? !prev : false));
   };
 
   const handleLogin = () => {
@@ -144,21 +147,61 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
       <nav className={`bg-paimana-dark-blue text-white sticky top-0 z-40 transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
         <div className="container-custom">
           <div className="flex items-center justify-center relative">
-            <div className="flex items-center gap-1 lg:gap-2">
+            <div className="flex items-center gap-1 lg:gap-2" ref={desktopNavRef}>
               <Link
                 to="/"
+                onClick={closeAllDesktopDropdowns}
                 className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap ${
                   isActive('/') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
                 }`}
               >
                 Home
               </Link>
-              
-              {/* Ministry Dropdown */}
-              <div className="relative" ref={dropdownRef}>
+
+              {/* Projects Dropdown */}
+              <div className="relative">
                 <button
                   type="button"
-                  onClick={() => setIsMinistryOpen(!isMinistryOpen)}
+                  onClick={() => toggleDesktopDropdown('offerings')}
+                  className="px-4 py-3 text-sm font-medium transition-colors flex items-center gap-1 text-white/90 hover:bg-white/10 hover:text-white"
+                >
+                  Projects
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isOfferingsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isOfferingsOpen && (
+                  <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
+                    {projectLinks.map((p) =>
+                      p.path.startsWith('http') ? (
+                        <a
+                          key={p.path}
+                          href={p.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={closeAllDesktopDropdowns}
+                          className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        >
+                          {p.label}
+                        </a>
+                      ) : (
+                        <Link
+                          key={p.path}
+                          to={p.path}
+                          onClick={closeAllDesktopDropdowns}
+                          className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        >
+                          {p.label}
+                        </Link>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Ministry Dropdown */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => toggleDesktopDropdown('ministry')}
                   className="px-4 py-3 text-sm font-medium transition-colors flex items-center gap-1 text-white/90 hover:bg-white/10 hover:text-white"
                 >
                   Ministry
@@ -166,114 +209,46 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
                 </button>
                 {isMinistryOpen && (
                   <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
-                    <Link to="/about" className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                      About Ministry
-                    </Link>
-                    <Link to="/about" className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                      Organization Structure
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Offerings Dropdown */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setIsOfferingsOpen(!isOfferingsOpen)}
-                  className="px-4 py-3 text-sm font-medium transition-colors flex items-center gap-1 text-white/90 hover:bg-white/10 hover:text-white"
-                >
-                  Offerings
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isOfferingsOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isOfferingsOpen && (
-                  <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
-                    {projectLinks.map((p) => (
+                    {ministryLinks.map((item) => (
                       <Link
-                        key={p.path}
-                        to={p.path}
-                        onClick={() => setIsOfferingsOpen(false)}
+                        key={item.label}
+                        to={item.path}
+                        onClick={closeAllDesktopDropdowns}
                         className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
                       >
-                        {p.label}
+                        {item.label}
                       </Link>
                     ))}
                   </div>
                 )}
               </div>
 
-              {/* Documents Dropdown */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setIsDocumentsOpen(!isDocumentsOpen)}
-                  className="px-4 py-3 text-sm font-medium transition-colors flex items-center gap-1 text-white/90 hover:bg-white/10 hover:text-white"
-                >
-                  Documents
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isDocumentsOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isDocumentsOpen && (
-                  <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
-                    <Link to="/user-manuals" className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                      User Manuals
-                    </Link>
-                    <Link to="/user-manuals" className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                      Reports
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Media Dropdown */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setIsMediaOpen(!isMediaOpen)}
-                  className="px-4 py-3 text-sm font-medium transition-colors flex items-center gap-1 text-white/90 hover:bg-white/10 hover:text-white"
-                >
-                  Media
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isMediaOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isMediaOpen && (
-                  <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
-                    <Link to="/public-dashboard" className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                      News & Updates
-                    </Link>
-                    <Link to="/public-dashboard" className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                      Gallery
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Connect Dropdown */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setIsConnectOpen(!isConnectOpen)}
-                  className="px-4 py-3 text-sm font-medium transition-colors flex items-center gap-1 text-white/90 hover:bg-white/10 hover:text-white"
-                >
-                  Connect
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isConnectOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isConnectOpen && (
-                  <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
-                    <Link to="/contact" className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                      Contact Us
-                    </Link>
-                    <Link to="/contact" className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                      Helpdesk
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Feedback Link */}
               <Link
-                to="/contact"
-                className="px-4 py-3 text-sm font-medium transition-colors text-white/90 hover:bg-white/10 hover:text-white"
+                to="/about"
+                onClick={closeAllDesktopDropdowns}
+                className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap ${
+                  isActive('/about') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
+                }`}
               >
-                Feedback (User Experience)
+                About Us
+              </Link>
+              <Link
+                to="/public-dashboard"
+                onClick={closeAllDesktopDropdowns}
+                className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap ${
+                  isActive('/public-dashboard') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/user-manuals"
+                onClick={closeAllDesktopDropdowns}
+                className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap ${
+                  isActive('/user-manuals') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                User Manual
               </Link>
 
               {/* Login Button - Only show on project pages */}
@@ -328,38 +303,96 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
                 </button>
                 {isMobileProjectsOpen && (
                   <div className="pl-4 mt-1 flex flex-col gap-1">
-                    {projectLinks.map((p) => (
+                    {projectLinks.map((p) =>
+                      p.path.startsWith('http') ? (
+                        <a
+                          key={p.path}
+                          href={p.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            setIsMobileProjectsOpen(false);
+                          }}
+                          className="px-4 py-2.5 rounded-lg text-sm font-medium text-white/90 hover:bg-white/10"
+                        >
+                          {p.label}
+                        </a>
+                      ) : (
+                        <Link
+                          key={p.path}
+                          to={p.path}
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            setIsMobileProjectsOpen(false);
+                          }}
+                          className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                            isActive(p.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
+                          }`}
+                        >
+                          {p.label}
+                        </Link>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setIsMobileMinistryOpen(!isMobileMinistryOpen)}
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-white/90 hover:bg-white/10"
+                >
+                  Ministry
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isMobileMinistryOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isMobileMinistryOpen && (
+                  <div className="pl-4 mt-1 flex flex-col gap-1">
+                    {ministryLinks.map((item) => (
                       <Link
-                        key={p.path}
-                        to={p.path}
+                        key={item.label}
+                        to={item.path}
                         onClick={() => {
                           setIsMobileMenuOpen(false);
-                          setIsMobileProjectsOpen(false);
+                          setIsMobileMinistryOpen(false);
                         }}
                         className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                          isActive(p.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
+                          isActive(item.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
                         }`}
                       >
-                        {p.label}
+                        {item.label}
                       </Link>
                     ))}
                   </div>
                 )}
               </div>
-              {mainNavItems
-                .filter((item) => item.path !== '/')
-                .map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                      isActive(item.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+              <Link
+                to="/about"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('/about') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
+                }`}
+              >
+                About Us
+              </Link>
+              <Link
+                to="/public-dashboard"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('/public-dashboard') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
+                }`}
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/user-manuals"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('/user-manuals') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
+                }`}
+              >
+                User Manual
+              </Link>
               {variant === 'project' && (
                 <button
                   onClick={() => {

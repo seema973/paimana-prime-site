@@ -22,7 +22,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/nie-i-state" element={<ProjectPage />} />
           <Route path="/nie-i-ministry" element={<ProjectPage />} />
-          <Route path="/project-monitoring" element={<ProjectPage />} />
+          <Route path="/project-monitoring-input" element={<ProjectPage />} />
           <Route path="/performance-monitoring" element={<ProjectPage />} />
           <Route path="/tpp" element={<ProjectPage />} />
           <Route path="/login" element={<Login />} />
