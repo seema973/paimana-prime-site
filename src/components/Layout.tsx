@@ -11,7 +11,7 @@ const Layout = () => {
     const projectRoutes = [
       '/nie-i-state',
       '/nie-i-ministry',
-      '/project-monitoring',
+      '/project-monitoring-input',
       '/performance-monitoring',
       '/tpp',
     ];
