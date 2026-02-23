@@ -12,6 +12,9 @@ import Login from '@/pages/Login';
 import PublicDashboard from '@/pages/PublicDashboard';
 import UserManuals from '@/pages/UserManuals';
 import Contact from '@/pages/Contact';
+import Framework from '@/pages/Framework';
+import Documents from '@/pages/Documents';
+import Media from '@/pages/Media';
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/framework" element={<Framework />} />
+          <Route path="/documents" element={<Documents />} />
+          <Route path="/media" element={<Media />} />
           <Route path="/nie-i-state" element={<ProjectPage />} />
           <Route path="/nie-i-ministry" element={<ProjectPage />} />
           <Route path="/project-monitoring-input" element={<ProjectPage />} />

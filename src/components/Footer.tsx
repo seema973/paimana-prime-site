@@ -6,16 +6,17 @@ const Footer = () => {
     { label: 'Home', path: '/' },
     { label: 'About', path: '/about' },
     { label: 'User Manuals', path: '/user-manuals' },
-    { label: 'Projects', path: '/#key-initiatives' },
+    { label: 'Framework', path: '/#key-initiatives' },
   ];
 
-  const projects = [
-    { label: 'NIE-I State', path: '/nie-i-state' },
-    { label: 'NIE-I Ministry', path: '/nie-i-ministry' },
-    { label: 'Project Monitoring (Input CUF FORM)', path: '/project-monitoring-input' },
-    { label: 'Project Monitoring (Output Flash Reports)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
-    { label: 'Performance Monitoring', path: '/performance-monitoring' },
-    { label: 'TPP', path: '/tpp' },
+  // Same order as home page cards / Framework dropdown
+  const frameworkLinks = [
+    { label: 'Project Monitoring (Add/Update – Common Upload Form)', path: 'https://iigdev.gaurav.club/home' },
+    { label: 'Project Monitoring (Reports/Dashboard)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
+    { label: 'Performance Monitoring', path: 'https://app.powerbi.com/view?r=eyJrIjoiM2Y2YmQ4MWYtNWIxNS00ODVhLTkxYTctNzhhMmY2ZjczNTEwIiwidCI6IjliZDllNTJjLWU1MGItNDUzYS04MzA0LTczMjY4NWM4Y2NlOSJ9' },
+    { label: 'NIE-I – States', path: '/nie-i-state' },
+    { label: 'NIE-I – Ministry', path: '/nie-i-ministry' },
+    { label: 'Twenty Point Programme', path: '/tpp' },
   ];
 
   const socialLinks = [
@@ -83,11 +84,11 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Projects - Middle Column */}
+          {/* Framework - Middle Column (same order as cards) */}
           <div>
-            <h4 className="font-poppins font-semibold text-lg mb-4">Projects</h4>
+            <h4 className="font-poppins font-semibold text-lg mb-4">Framework</h4>
             <ul className="space-y-2">
-              {projects.map((project) => (
+              {frameworkLinks.map((project) => (
                 <li key={project.path}>
                   {project.path.startsWith('http') ? (
                     <a

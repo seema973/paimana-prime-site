@@ -51,7 +51,7 @@ const About = () => {
       </div>
 
       {/* Header */}
-      <section className="py-12 bg-gradient-to-r from-paimana-blue to-paimana-accent-blue">
+      <section id="about-paimana" className="py-12 bg-gradient-to-r from-paimana-blue to-paimana-accent-blue">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -74,7 +74,7 @@ const About = () => {
       </section>
 
       {/* About Content */}
-      <section className="py-16">
+      <section id="about-ministry" className="py-16">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -132,7 +132,7 @@ const About = () => {
       </section>
 
       {/* Values Grid */}
-      <section className="py-16 bg-white">
+      <section id="about-ipmd" className="py-16 bg-white">
         <div className="container-custom">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="font-poppins font-bold text-3xl text-paimana-dark-blue mb-4">
@@ -177,7 +177,7 @@ const About = () => {
       </section>
 
       {/* Projects Overview */}
-      <section className="py-16">
+      <section id="whos-who" className="py-16">
         <div className="container-custom">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="font-poppins font-bold text-3xl text-paimana-dark-blue mb-4">

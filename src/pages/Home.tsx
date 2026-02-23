@@ -16,7 +16,7 @@ const Home = () => {
     },
     {
       id: 2,
-      image: '/banner2.png',
+      image: '/banner_2.jpeg',
     },
   ];
 
@@ -34,29 +34,15 @@ const Home = () => {
   }, []);
   const keyInitiatives = [
     {
-      title: 'NIE-I State',
-      description: 'Monitoring key initiatives at the state level.',
-      image: '/project-nie-state.jpg',
-      gradient: 'from-blue-600 to-blue-500',
-      path: '/nie-i-state',
-    },
-    {
-      title: 'NIE-I Ministry',
-      description: 'Tracking key projects at the ministry level.',
-      image: '/project-nie-ministry.jpg',
-      gradient: 'from-orange-500 to-orange-400',
-      path: '/nie-i-ministry',
-    },
-    {
-      title: 'Project Monitoring (Input CUF FORM)',
-      description: 'Input CUF form for project monitoring.',
+      title: 'Project Monitoring (Add/Update – Common Upload Form)',
+      description: 'Add or update project data via the common upload form.',
       image: '/project-monitoring.jpg',
       gradient: 'from-green-500 to-green-400',
-      path: '/project-monitoring-input',
+      path: 'https://iigdev.gaurav.club/home',
     },
     {
-      title: 'Project Monitoring (Output Flash Reports)',
-      description: 'Output flash reports for project monitoring.',
+      title: 'Project Monitoring (Reports/Dashboard)',
+      description: 'View reports and dashboard for project monitoring.',
       image: '/project-monitoring.jpg',
       gradient: 'from-green-600 to-green-500',
       path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew',
@@ -66,10 +52,24 @@ const Home = () => {
       description: 'Assessing & improving project performance.',
       image: '/project-performance.jpg',
       gradient: 'from-blue-400 to-blue-300',
-      path: '/performance-monitoring',
+      path: 'https://app.powerbi.com/view?r=eyJrIjoiM2Y2YmQ4MWYtNWIxNS00ODVhLTkxYTctNzhhMmY2ZjczNTEwIiwidCI6IjliZDllNTJjLWU1MGItNDUzYS04MzA0LTczMjY4NWM4Y2NlOSJ9',
     },
     {
-      title: 'TPP',
+      title: 'NIE-I – States',
+      description: 'Monitoring key initiatives at the state level.',
+      image: '/project-nie-state.jpg',
+      gradient: 'from-blue-600 to-blue-500',
+      path: '/nie-i-state',
+    },
+    {
+      title: 'NIE-I – Ministry',
+      description: 'Tracking key projects at the ministry level.',
+      image: '/project-nie-ministry.jpg',
+      gradient: 'from-orange-500 to-orange-400',
+      path: '/nie-i-ministry',
+    },
+    {
+      title: 'Twenty Point Programme',
       description: 'Managing technical & professional personnel data.',
       image: '/project-tpp.jpg',
       gradient: 'from-purple-500 to-purple-400',
@@ -137,17 +137,17 @@ const Home = () => {
         >
           <CarouselContent className="h-[56vh] -ml-0">
             {banners.map((banner) => {
-              const isBanner2 = banner.image === '/banner2.png';
+              const isBanner2 = banner.image === '/banner_2.jpeg';
               return (
                 <CarouselItem key={banner.id} className="h-full pl-0 basis-full">
                   <div
                     className="w-full h-full"
                     style={{
                       backgroundImage: `url(${banner.image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: isBanner2 ? 'center 28%' : 'top center',
+                      backgroundSize: isBanner2 ? 'auto 100%' : 'cover',
+                      backgroundPosition: isBanner2 ? 'center center' : 'top center',
                       backgroundRepeat: 'no-repeat',
-                      backgroundColor: isBanner2 ? 'transparent' : '#f5f5f5',
+                      backgroundColor: isBanner2 ? '#f5f5f5' : '#f5f5f5',
                       minHeight: heroBannerHeight,
                     }}
                   />
@@ -186,12 +186,9 @@ const Home = () => {
                 
                 {/* Content */}
                 <div className="p-4">
-                  <h3 className="font-poppins font-semibold text-paimana-dark-blue mb-2 text-base">
+                  <h3 className="font-poppins font-semibold text-paimana-dark-blue text-base">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
-                    {project.description}
-                  </p>
                 </div>
               </a>
               ) : (
@@ -215,12 +212,9 @@ const Home = () => {
                 
                 {/* Content */}
                 <div className="p-4">
-                  <h3 className="font-poppins font-semibold text-paimana-dark-blue mb-2 text-base">
+                  <h3 className="font-poppins font-semibold text-paimana-dark-blue text-base">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
-                    {project.description}
-                  </p>
                 </div>
               </Link>
               );
@@ -259,12 +253,9 @@ const Home = () => {
                 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="font-poppins font-semibold text-paimana-dark-blue mb-2 text-lg">
+                  <h3 className="font-poppins font-semibold text-paimana-dark-blue text-lg">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
               </Link>
             ))}

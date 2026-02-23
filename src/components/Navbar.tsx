@@ -1,33 +1,43 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, ChevronDown, Search, Printer, Globe } from 'lucide-react';
+import { Menu, X, User, Search, FileInput, ChevronDown } from 'lucide-react';
 
 interface NavbarProps {
   variant?: 'main' | 'project';
 }
 
-const projectLinks = [
-  { label: 'NIE-I State', path: '/nie-i-state' },
-  { label: 'NIE-I Ministry', path: '/nie-i-ministry' },
-  { label: 'Project Monitoring (Input CUF FORM)', path: '/project-monitoring-input' },
-  { label: 'Project Monitoring (Output Flash Reports)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
-  { label: 'Performance Monitoring', path: '/performance-monitoring' },
-  { label: 'TPP', path: '/tpp' },
+const aboutUsLinks = [
+  { label: 'About the Ministry', path: '/about#about-ministry' },
+  { label: 'About IPMD', path: '/about#about-ipmd' },
+  { label: 'About PAIMANA', path: '/about#about-paimana' },
+  { label: "Who's Who", path: '/about#whos-who' },
 ];
 
-const ministryLinks = [
-  { label: 'Meet the Secretary', path: '/about#meet-the-secretary' },
-  { label: 'Organization Structure', path: '/about#organization-structure' },
-  { label: "Who's Who", path: '/about#whos-who' },
+const frameworkLinks = [
+  { label: 'Project Monitoring (Add/Update – Common Upload Form)', path: 'https://iigdev.gaurav.club/home' },
+  { label: 'Project Monitoring (Reports/Dashboard)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
+  { label: 'Performance Monitoring', path: 'https://app.powerbi.com/view?r=eyJrIjoiM2Y2YmQ4MWYtNWIxNS00ODVhLTkxYTctNzhhMmY2ZjczNTEwIiwidCI6IjliZDllNTJjLWU1MGItNDUzYS04MzA0LTczMjY4NWM4Y2NlOSJ9' },
+  { label: 'NIE-I – States', path: '/nie-i-state' },
+  { label: 'NIE-I – Ministry', path: '/nie-i-ministry' },
+  { label: 'Twenty Point Programme', path: '/tpp' },
+];
+
+const mainNavLinks = [
+  { label: 'Home', path: '/' },
+  { label: 'About Us', path: '/about', dropdownLinks: aboutUsLinks },
+  { label: 'Framework', path: '/framework', dropdownLinks: frameworkLinks },
+  { label: 'Documents', path: '/documents' },
+  { label: 'Media', path: '/media' },
+  { label: 'Connect Us', path: '/contact' },
 ];
 
 const Navbar = ({ variant = 'main' }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobileProjectsOpen, setIsMobileProjectsOpen] = useState(false);
-  const [isMobileMinistryOpen, setIsMobileMinistryOpen] = useState(false);
-  const [isMinistryOpen, setIsMinistryOpen] = useState(false);
-  const [isOfferingsOpen, setIsOfferingsOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isFrameworkOpen, setIsFrameworkOpen] = useState(false);
+  const [isMobileAboutOpen, setIsMobileAboutOpen] = useState(false);
+  const [isMobileFrameworkOpen, setIsMobileFrameworkOpen] = useState(false);
   const desktopNavRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
@@ -42,27 +52,24 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (desktopNavRef.current && !desktopNavRef.current.contains(e.target as Node)) {
-        setIsMinistryOpen(false);
-        setIsOfferingsOpen(false);
+        setIsAboutOpen(false);
+        setIsFrameworkOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const frameworkPaths = frameworkLinks.map((l) => (l.path.startsWith('http') ? '' : l.path)).filter(Boolean);
   const isActive = (path: string) => {
     if (path.startsWith('#')) return false;
+    if (path === '/framework') return frameworkPaths.includes(location.pathname);
     return location.pathname === path;
   };
 
   const closeAllDesktopDropdowns = () => {
-    setIsMinistryOpen(false);
-    setIsOfferingsOpen(false);
-  };
-
-  const toggleDesktopDropdown = (dropdown: 'ministry' | 'offerings') => {
-    setIsMinistryOpen((prev) => (dropdown === 'ministry' ? !prev : false));
-    setIsOfferingsOpen((prev) => (dropdown === 'offerings' ? !prev : false));
+    setIsAboutOpen(false);
+    setIsFrameworkOpen(false);
   };
 
   const handleLogin = () => {
@@ -80,7 +87,7 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
               <img
                 src="https://www.mospi.gov.in/uploads/primaryLogo/primaryLogo-1dee0dd9-99fd-4b8f-a352-7a53e0655404.svg"
                 alt="Government of India - Ministry of Statistics and Programme Implementation"
-                className="h-10 w-10 object-contain"
+                className="h-8 w-8 object-contain"
                 style={{
                   backgroundColor: 'transparent',
                   background: 'transparent',
@@ -100,7 +107,7 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
               <img
                 src="https://www.mospi.gov.in/uploads/secondaryLogo/1.webp"
                 alt="Secondary Logo"
-                className="h-12 w-auto object-contain"
+                className="h-11 w-auto object-contain"
                 style={{
                   backgroundColor: 'transparent',
                   background: 'transparent',
@@ -109,11 +116,37 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
-              <div className="h-12 w-px bg-gray-300"></div>
+              <div className="h-9 w-px bg-gray-300"></div>
               <img
-                src="https://ipm.mospi.gov.in/Content/img/logo3.svg"
-                alt="IPM Logo"
-                className="h-12 w-auto object-contain"
+                src="https://www.mospi.gov.in/uploads/secondaryLogo/2.webp"
+                alt="MOSPI Secondary Logo"
+                className="h-9 w-auto object-contain"
+                style={{
+                  backgroundColor: 'transparent',
+                  background: 'transparent',
+                }}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+              <div className="h-9 w-px bg-gray-300"></div>
+              <img
+                src="https://www.mospi.gov.in/uploads/secondaryLogo/3.webp"
+                alt="MOSPI Logo"
+                className="h-11 w-auto object-contain"
+                style={{
+                  backgroundColor: 'transparent',
+                  background: 'transparent',
+                }}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+              <div className="h-9 w-px bg-gray-300"></div>
+              <img
+                src="/paimana.png"
+                alt="PAIMANA Logo"
+                className="h-9 w-auto object-contain"
                 style={{
                   backgroundColor: 'transparent',
                   background: 'transparent',
@@ -124,19 +157,41 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
               />
             </div>
 
-            {/* Right Side - Utility Icons */}
-            <div className="flex items-center gap-2">
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" aria-label="Search">
+            {/* Right Side - Utility Icons (same as reference) */}
+            <div className="flex items-center gap-0">
+              <button
+                type="button"
+                className="p-2 hover:bg-gray-100 rounded transition-colors flex items-center justify-center"
+                aria-label="Search"
+              >
                 <Search className="w-5 h-5 text-gray-600" />
               </button>
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors hidden md:block" aria-label="Print">
-                <Printer className="w-5 h-5 text-gray-600" />
+              <div className="w-px h-6 bg-gray-300 flex-shrink-0" aria-hidden />
+              <a
+                href="#main-content"
+                className="p-2 hover:bg-gray-100 rounded transition-colors flex items-center justify-center"
+                aria-label="Skip to main content"
+              >
+                <FileInput className="w-5 h-5 text-gray-600" />
+              </a>
+              <div className="w-px h-6 bg-gray-300 flex-shrink-0" aria-hidden />
+              <button
+                type="button"
+                className="p-2 hover:bg-gray-100 rounded transition-colors flex items-center justify-center"
+                aria-label="Language / Translate"
+                title="Language"
+              >
+                <span className="text-sm font-semibold text-gray-700">अ</span>
+                <span className="text-gray-400 mx-0.5">/</span>
+                <span className="text-sm font-semibold text-gray-700">A</span>
               </button>
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" aria-label="Language">
-                <span className="text-lg font-semibold text-gray-700">अ</span>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" aria-label="Accessibility">
-                <Globe className="w-5 h-5 text-gray-600" />
+              <div className="w-px h-6 bg-gray-300 flex-shrink-0" aria-hidden />
+              <button
+                type="button"
+                className="p-2 hover:bg-gray-100 rounded transition-colors flex items-center justify-center"
+                aria-label="User"
+              >
+                <User className="w-5 h-5 text-gray-600" />
               </button>
             </div>
           </div>
@@ -148,108 +203,64 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
         <div className="container-custom">
           <div className="flex items-center justify-center relative">
             <div className="flex items-center gap-1 lg:gap-2" ref={desktopNavRef}>
-              <Link
-                to="/"
-                onClick={closeAllDesktopDropdowns}
-                className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap ${
-                  isActive('/') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                Home
-              </Link>
-
-              {/* Projects Dropdown */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => toggleDesktopDropdown('offerings')}
-                  className="px-4 py-3 text-sm font-medium transition-colors flex items-center gap-1 text-white/90 hover:bg-white/10 hover:text-white"
-                >
-                  Projects
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isOfferingsOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isOfferingsOpen && (
-                  <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
-                    {projectLinks.map((p) =>
-                      p.path.startsWith('http') ? (
-                        <a
-                          key={p.path}
-                          href={p.path}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={closeAllDesktopDropdowns}
-                          className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                        >
-                          {p.label}
-                        </a>
-                      ) : (
-                        <Link
-                          key={p.path}
-                          to={p.path}
-                          onClick={closeAllDesktopDropdowns}
-                          className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                        >
-                          {p.label}
-                        </Link>
-                      )
+              {mainNavLinks.map((item) =>
+                'dropdownLinks' in item && item.dropdownLinks ? (
+                  <div key={item.path} className="relative">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const isAbout = item.path === '/about';
+                        setIsAboutOpen(isAbout ? (prev) => !prev : false);
+                        setIsFrameworkOpen(!isAbout ? (prev) => !prev : false);
+                      }}
+                      className={`px-4 py-3 text-sm font-medium transition-colors flex items-center gap-1 whitespace-nowrap ${
+                        isActive(item.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      {item.label}
+                      <ChevronDown className={`w-4 h-4 transition-transform ${(item.path === '/about' ? isAboutOpen : isFrameworkOpen) ? 'rotate-180' : ''}`} />
+                    </button>
+                    {(item.path === '/about' ? isAboutOpen : isFrameworkOpen) && (
+                      <div className="absolute top-full left-0 mt-1 py-1 min-w-[220px] max-w-[280px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
+                        {item.dropdownLinks.map((sub) =>
+                          (sub as { path: string }).path.startsWith('http') ? (
+                            <a
+                              key={(sub as { path: string }).path}
+                              href={(sub as { path: string }).path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={closeAllDesktopDropdowns}
+                              className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                              {(sub as { label: string }).label}
+                            </a>
+                          ) : (
+                            <Link
+                              key={(sub as { path: string }).path}
+                              to={(sub as { path: string }).path}
+                              onClick={closeAllDesktopDropdowns}
+                              className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                              {(sub as { label: string }).label}
+                            </Link>
+                          )
+                        )}
+                      </div>
                     )}
                   </div>
-                )}
-              </div>
-
-              {/* Ministry Dropdown */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => toggleDesktopDropdown('ministry')}
-                  className="px-4 py-3 text-sm font-medium transition-colors flex items-center gap-1 text-white/90 hover:bg-white/10 hover:text-white"
-                >
-                  Ministry
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isMinistryOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isMinistryOpen && (
-                  <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-100 z-50">
-                    {ministryLinks.map((item) => (
-                      <Link
-                        key={item.label}
-                        to={item.path}
-                        onClick={closeAllDesktopDropdowns}
-                        className="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <Link
-                to="/about"
-                onClick={closeAllDesktopDropdowns}
-                className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap ${
-                  isActive('/about') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                About Us
-              </Link>
-              <Link
-                to="/public-dashboard"
-                onClick={closeAllDesktopDropdowns}
-                className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap ${
-                  isActive('/public-dashboard') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                Dashboard
-              </Link>
-              <Link
-                to="/user-manuals"
-                onClick={closeAllDesktopDropdowns}
-                className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap ${
-                  isActive('/user-manuals') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                User Manual
-              </Link>
+                ) : (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={closeAllDesktopDropdowns}
+                    className={`px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap ${
+                      isActive(item.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
 
               {/* Login Button - Only show on project pages */}
               {variant === 'project' && (
@@ -283,116 +294,72 @@ const Navbar = ({ variant = 'main' }: NavbarProps) => {
         <div className="lg:hidden bg-paimana-dark-blue text-white border-t border-white/10">
           <div className="container-custom py-4">
             <nav className="flex flex-col gap-2">
-              <Link
-                to="/"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('/') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
-                }`}
-              >
-                Home
-              </Link>
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setIsMobileProjectsOpen(!isMobileProjectsOpen)}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-white/90 hover:bg-white/10"
-                >
-                  Projects
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isMobileProjectsOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isMobileProjectsOpen && (
-                  <div className="pl-4 mt-1 flex flex-col gap-1">
-                    {projectLinks.map((p) =>
-                      p.path.startsWith('http') ? (
-                        <a
-                          key={p.path}
-                          href={p.path}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => {
-                            setIsMobileMenuOpen(false);
-                            setIsMobileProjectsOpen(false);
-                          }}
-                          className="px-4 py-2.5 rounded-lg text-sm font-medium text-white/90 hover:bg-white/10"
-                        >
-                          {p.label}
-                        </a>
-                      ) : (
-                        <Link
-                          key={p.path}
-                          to={p.path}
-                          onClick={() => {
-                            setIsMobileMenuOpen(false);
-                            setIsMobileProjectsOpen(false);
-                          }}
-                          className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                            isActive(p.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
-                          }`}
-                        >
-                          {p.label}
-                        </Link>
-                      )
+              {mainNavLinks.map((item) =>
+                'dropdownLinks' in item && item.dropdownLinks ? (
+                  <div key={item.path}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const isAbout = item.path === '/about';
+                        setIsMobileAboutOpen(isAbout ? (prev) => !prev : false);
+                        setIsMobileFrameworkOpen(!isAbout ? (prev) => !prev : false);
+                      }}
+                      className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                        isActive(item.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
+                      }`}
+                    >
+                      {item.label}
+                      <ChevronDown className={`w-4 h-4 transition-transform ${(item.path === '/about' ? isMobileAboutOpen : isMobileFrameworkOpen) ? 'rotate-180' : ''}`} />
+                    </button>
+                    {(item.path === '/about' ? isMobileAboutOpen : isMobileFrameworkOpen) && (
+                      <div className="pl-4 mt-1 flex flex-col gap-1">
+                        {item.dropdownLinks.map((sub) =>
+                          (sub as { path: string }).path.startsWith('http') ? (
+                            <a
+                              key={(sub as { path: string }).path}
+                              href={(sub as { path: string }).path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                setIsMobileAboutOpen(false);
+                                setIsMobileFrameworkOpen(false);
+                              }}
+                              className="px-4 py-2.5 rounded-lg text-sm font-medium text-white/90 hover:bg-white/10"
+                            >
+                              {(sub as { label: string }).label}
+                            </a>
+                          ) : (
+                            <Link
+                              key={(sub as { path: string }).path}
+                              to={(sub as { path: string }).path}
+                              onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                setIsMobileAboutOpen(false);
+                                setIsMobileFrameworkOpen(false);
+                              }}
+                              className="px-4 py-2.5 rounded-lg text-sm font-medium text-white/90 hover:bg-white/10"
+                            >
+                              {(sub as { label: string }).label}
+                            </Link>
+                          )
+                        )}
+                      </div>
                     )}
                   </div>
-                )}
-              </div>
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setIsMobileMinistryOpen(!isMobileMinistryOpen)}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-white/90 hover:bg-white/10"
-                >
-                  Ministry
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isMobileMinistryOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isMobileMinistryOpen && (
-                  <div className="pl-4 mt-1 flex flex-col gap-1">
-                    {ministryLinks.map((item) => (
-                      <Link
-                        key={item.label}
-                        to={item.path}
-                        onClick={() => {
-                          setIsMobileMenuOpen(false);
-                          setIsMobileMinistryOpen(false);
-                        }}
-                        className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                          isActive(item.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <Link
-                to="/about"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('/about') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
-                }`}
-              >
-                About Us
-              </Link>
-              <Link
-                to="/public-dashboard"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('/public-dashboard') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
-                }`}
-              >
-                Dashboard
-              </Link>
-              <Link
-                to="/user-manuals"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                  isActive('/user-manuals') ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
-                }`}
-              >
-                User Manual
-              </Link>
+                ) : (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                      isActive(item.path) ? 'bg-paimana-blue text-white' : 'text-white/90 hover:bg-white/10'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
               {variant === 'project' && (
                 <button
                   onClick={() => {
