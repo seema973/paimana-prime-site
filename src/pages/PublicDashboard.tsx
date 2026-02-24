@@ -15,16 +15,16 @@ const PublicDashboard = () => {
   ];
 
   const projectStatus = [
-    { name: 'NIE-I State', completed: 85, total: 100, status: 'On Track' },
-    { name: 'NIE-I Ministry', completed: 72, total: 100, status: 'On Track' },
+    { name: 'NIE-I (State/UTs)', completed: 85, total: 100, status: 'On Track' },
+    { name: 'NIE-I (Ministry)', completed: 72, total: 100, status: 'On Track' },
     { name: 'Project Monitoring', completed: 45, total: 80, status: 'At Risk' },
     { name: 'Performance Monitoring', completed: 92, total: 100, status: 'On Track' },
     { name: 'TPP', completed: 30, total: 60, status: 'Delayed' },
   ];
 
   const recentUpdates = [
-    { date: '2024-01-15', project: 'NIE-I State', update: 'Data collection completed for Q4 2023' },
-    { date: '2024-01-12', project: 'NIE-I Ministry', update: 'New dashboard features deployed' },
+    { date: '2024-01-15', project: 'NIE-I (State/UTs)', update: 'Data collection completed for Q4 2023' },
+    { date: '2024-01-12', project: 'NIE-I (Ministry)', update: 'New dashboard features deployed' },
     { date: '2024-01-10', project: 'Project Monitoring', update: 'UAT phase initiated' },
     { date: '2024-01-08', project: 'Performance Monitoring', update: 'Monthly reports published' },
     { date: '2024-01-05', project: 'TPP', update: 'Personnel database updated' },

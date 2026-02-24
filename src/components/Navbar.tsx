@@ -17,15 +17,15 @@ const frameworkLinks = [
   { label: 'Project Monitoring (Add/Update – Common Upload Form)', path: 'https://iigdev.gaurav.club/home' },
   { label: 'Project Monitoring (Reports/Dashboard)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
   { label: 'Performance Monitoring', path: 'https://app.powerbi.com/view?r=eyJrIjoiM2Y2YmQ4MWYtNWIxNS00ODVhLTkxYTctNzhhMmY2ZjczNTEwIiwidCI6IjliZDllNTJjLWU1MGItNDUzYS04MzA0LTczMjY4NWM4Y2NlOSJ9' },
-  { label: 'NIE-I – States', path: 'https://applive.gaurav.club/login' },
-  { label: 'NIE-I – Ministry', path: 'https://applive.gaurav.club/login' },
+  { label: 'NIE-I (State/UTs)', path: 'https://applive.gaurav.club/login' },
+  { label: 'NIE-I (Ministry)', path: 'https://applive.gaurav.club/login' },
   { label: 'Twenty Point Programme', path: '/tpp', noLink: true },
 ];
 
 const mainNavLinks = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about', dropdownLinks: aboutUsLinks },
-  { label: 'Paimana', path: '/framework', dropdownLinks: frameworkLinks },
+  { label: 'PAIMANA', path: '/framework', dropdownLinks: frameworkLinks },
   { label: 'Documents', path: '/documents' },
   { label: 'Media', path: '/media' },
   { label: 'Connect Us', path: '/contact' },

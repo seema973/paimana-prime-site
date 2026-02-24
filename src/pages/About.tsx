@@ -190,12 +190,12 @@ const About = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                name: 'NIE-I State',
+                name: 'NIE-I (State/UTs)',
                 description: 'National Infrastructure Enablement Index - monitoring at state level',
                 path: '/nie-i-state',
               },
               {
-                name: 'NIE-I Ministry',
+                name: 'NIE-I (Ministry)',
                 description: 'National Infrastructure Enablement Index - tracking at ministry level',
                 path: '/nie-i-ministry',
               },

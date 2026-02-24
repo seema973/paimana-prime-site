@@ -5,8 +5,8 @@ const frameworkLinks = [
   { label: 'Project Monitoring (Add/Update – Common Upload Form)', path: 'https://iigdev.gaurav.club/home', external: true },
   { label: 'Project Monitoring (Reports/Dashboard)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew', external: true },
   { label: 'Performance Monitoring', path: 'https://app.powerbi.com/view?r=eyJrIjoiM2Y2YmQ4MWYtNWIxNS00ODVhLTkxYTctNzhhMmY2ZjczNTEwIiwidCI6IjliZDllNTJjLWU1MGItNDUzYS04MzA0LTczMjY4NWM4Y2NlOSJ9', external: true },
-  { label: 'NIE-I – States', path: 'https://applive.gaurav.club/login', external: true },
-  { label: 'NIE-I – Ministry', path: 'https://applive.gaurav.club/login', external: true },
+  { label: 'NIE-I (State/UTs)', path: 'https://applive.gaurav.club/login', external: true },
+  { label: 'NIE-I (Ministry)', path: 'https://applive.gaurav.club/login', external: true },
   { label: 'Twenty Point Programme', path: '/tpp', noLink: true },
 ];
 
@@ -17,7 +17,7 @@ const Framework = () => {
 
   return (
     <div className="container-custom py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Paimana</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">PAIMANA</h1>
       <p className="text-gray-600 mb-8">Select an option below to view details and access the platform.</p>
       <nav className="flex flex-col gap-2 max-w-xl">
         {frameworkLinks.map((item) =>

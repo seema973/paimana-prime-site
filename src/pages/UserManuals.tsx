@@ -9,18 +9,18 @@ const UserManuals = () => {
 
   const manuals = [
     {
-      project: 'NIE-I State',
+      project: 'NIE-I (State/UTs)',
       documents: [
-        { title: 'User Guide - NIE-I State', type: 'PDF', size: '2.4 MB' },
+        { title: 'User Guide - NIE-I (State/UTs)', type: 'PDF', size: '2.4 MB' },
         { title: 'Data Entry Manual', type: 'PDF', size: '1.8 MB' },
         { title: 'Report Generation Guide', type: 'PDF', size: '1.2 MB' },
         { title: 'Quick Start Video', type: 'Video', size: '45 MB' },
       ],
     },
     {
-      project: 'NIE-I Ministry',
+      project: 'NIE-I (Ministry)',
       documents: [
-        { title: 'User Guide - NIE-I Ministry', type: 'PDF', size: '2.1 MB' },
+        { title: 'User Guide - NIE-I (Ministry)', type: 'PDF', size: '2.1 MB' },
         { title: 'Ministry Dashboard Manual', type: 'PDF', size: '1.5 MB' },
         { title: 'Performance Tracking Guide', type: 'PDF', size: '1.3 MB' },
       ],

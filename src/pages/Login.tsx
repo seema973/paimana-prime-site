@@ -14,8 +14,8 @@ const Login = () => {
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
 
   const projects = [
-    { id: 'nie-i-state', name: 'NIE-I State' },
-    { id: 'nie-i-ministry', name: 'NIE-I Ministry' },
+    { id: 'nie-i-state', name: 'NIE-I (State/UTs)' },
+    { id: 'nie-i-ministry', name: 'NIE-I (Ministry)' },
     { id: 'project-monitoring', name: 'Project Monitoring' },
     { id: 'performance-monitoring', name: 'Performance Monitoring' },
     { id: 'tpp', name: 'TPP' },

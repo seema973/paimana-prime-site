@@ -55,14 +55,14 @@ const Home = () => {
       path: 'https://app.powerbi.com/view?r=eyJrIjoiM2Y2YmQ4MWYtNWIxNS00ODVhLTkxYTctNzhhMmY2ZjczNTEwIiwidCI6IjliZDllNTJjLWU1MGItNDUzYS04MzA0LTczMjY4NWM4Y2NlOSJ9',
     },
     {
-      title: 'NIE-I – States',
+      title: 'NIE-I (State/UTs)',
       description: 'Monitoring key initiatives at the state level.',
       image: '/project-nie-state.jpg',
       gradient: 'from-blue-600 to-blue-500',
       path: 'https://applive.gaurav.club/login',
     },
     {
-      title: 'NIE-I – Ministry',
+      title: 'NIE-I (Ministry)',
       description: 'Tracking key projects at the ministry level.',
       image: '/project-nie-ministry.jpg',
       gradient: 'from-orange-500 to-orange-400',
