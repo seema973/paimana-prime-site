@@ -25,7 +25,7 @@ const frameworkLinks = [
 const mainNavLinks = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about', dropdownLinks: aboutUsLinks },
-  { label: 'Framework', path: '/framework', dropdownLinks: frameworkLinks },
+  { label: 'Paimana', path: '/framework', dropdownLinks: frameworkLinks },
   { label: 'Documents', path: '/documents' },
   { label: 'Media', path: '/media' },
   { label: 'Connect Us', path: '/contact' },

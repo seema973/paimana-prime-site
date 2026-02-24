@@ -17,8 +17,8 @@ const Framework = () => {
 
   return (
     <div className="container-custom py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Framework</h1>
-      <p className="text-gray-600 mb-8">Select a framework to view details and access the platform.</p>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Paimana</h1>
+      <p className="text-gray-600 mb-8">Select an option below to view details and access the platform.</p>
       <nav className="flex flex-col gap-2 max-w-xl">
         {frameworkLinks.map((item) =>
           item.noLink ? (

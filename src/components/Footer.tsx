@@ -6,10 +6,10 @@ const Footer = () => {
     { label: 'Home', path: '/' },
     { label: 'About', path: '/about' },
     { label: 'User Manuals', path: '/user-manuals' },
-    { label: 'Framework', path: '/#key-initiatives' },
+    { label: 'Paimana', path: '/#key-initiatives' },
   ];
 
-  // Same order as home page cards / Framework dropdown
+  // Same order as home page cards / Paimana dropdown
   const frameworkLinks = [
     { label: 'Project Monitoring (Add/Update – Common Upload Form)', path: 'https://iigdev.gaurav.club/home' },
     { label: 'Project Monitoring (Reports/Dashboard)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
@@ -84,9 +84,9 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Framework - Middle Column (same order as cards) */}
+          {/* Paimana - Middle Column (same order as cards) */}
           <div>
-            <h4 className="font-poppins font-semibold text-lg mb-4">Framework</h4>
+            <h4 className="font-poppins font-semibold text-lg mb-4">Paimana</h4>
             <ul className="space-y-2">
               {frameworkLinks.map((project) => (
                 <li key={project.path}>
