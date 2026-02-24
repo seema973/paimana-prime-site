@@ -14,8 +14,8 @@ const Footer = () => {
     { label: 'Project Monitoring (Add/Update – Common Upload Form)', path: 'https://iigdev.gaurav.club/home' },
     { label: 'Project Monitoring (Reports/Dashboard)', path: 'https://ipm.mospi.gov.in/Home/PublicDashboardNew' },
     { label: 'Performance Monitoring', path: 'https://app.powerbi.com/view?r=eyJrIjoiM2Y2YmQ4MWYtNWIxNS00ODVhLTkxYTctNzhhMmY2ZjczNTEwIiwidCI6IjliZDllNTJjLWU1MGItNDUzYS04MzA0LTczMjY4NWM4Y2NlOSJ9' },
-    { label: 'NIE-I – States', path: '/nie-i-state' },
-    { label: 'NIE-I – Ministry', path: '/nie-i-ministry' },
+    { label: 'NIE-I – States', path: 'https://applive.gaurav.club/login' },
+    { label: 'NIE-I – Ministry', path: 'https://applive.gaurav.club/login' },
     { label: 'Twenty Point Programme', path: '/tpp' },
   ];
 

@@ -59,14 +59,14 @@ const Home = () => {
       description: 'Monitoring key initiatives at the state level.',
       image: '/project-nie-state.jpg',
       gradient: 'from-blue-600 to-blue-500',
-      path: '/nie-i-state',
+      path: 'https://applive.gaurav.club/login',
     },
     {
       title: 'NIE-I – Ministry',
       description: 'Tracking key projects at the ministry level.',
       image: '/project-nie-ministry.jpg',
       gradient: 'from-orange-500 to-orange-400',
-      path: '/nie-i-ministry',
+      path: 'https://applive.gaurav.club/login',
     },
     {
       title: 'Twenty Point Programme',
@@ -74,6 +74,7 @@ const Home = () => {
       image: '/project-tpp.jpg',
       gradient: 'from-purple-500 to-purple-400',
       path: '/tpp',
+      noLink: true,
     },
   ];
 
@@ -162,7 +163,36 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-1">
             {keyInitiatives.map((project) => {
               const isExternal = project.path.startsWith('http');
-              const cardClass = 'group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100';
+              const isNoLink = (project as { noLink?: boolean }).noLink === true;
+              const cardClass = 'group bg-white rounded-lg overflow-hidden shadow-lg border border-gray-100 ' +
+                (isNoLink ? 'cursor-default' : 'hover:shadow-2xl transition-all duration-300 hover:-translate-y-2');
+              const cardContent = (
+                <>
+                  <div className={`relative h-32 overflow-hidden bg-gradient-to-br ${project.gradient}`}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className={`w-full h-full object-cover ${isNoLink ? '' : 'transition-transform duration-500 group-hover:scale-110'}`}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-poppins font-semibold text-paimana-dark-blue text-base">
+                      {project.title}
+                    </h3>
+                  </div>
+                </>
+              );
+              if (isNoLink) {
+                return (
+                  <div key={project.title} className={cardClass}>
+                    {cardContent}
+                  </div>
+                );
+              }
               return isExternal ? (
                 <a
                   key={project.title}
@@ -171,52 +201,16 @@ const Home = () => {
                   rel="noopener noreferrer"
                   className={cardClass}
                 >
-                {/* Image Area */}
-                <div className={`relative h-32 overflow-hidden bg-gradient-to-br ${project.gradient}`}>
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-                
-                {/* Content */}
-                <div className="p-4">
-                  <h3 className="font-poppins font-semibold text-paimana-dark-blue text-base">
-                    {project.title}
-                  </h3>
-                </div>
-              </a>
+                  {cardContent}
+                </a>
               ) : (
                 <Link
                   key={project.title}
                   to={project.path}
                   className={cardClass}
                 >
-                {/* Image Area */}
-                <div className={`relative h-32 overflow-hidden bg-gradient-to-br ${project.gradient}`}>
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-                
-                {/* Content */}
-                <div className="p-4">
-                  <h3 className="font-poppins font-semibold text-paimana-dark-blue text-base">
-                    {project.title}
-                  </h3>
-                </div>
-              </Link>
+                  {cardContent}
+                </Link>
               );
             })}
           </div>
