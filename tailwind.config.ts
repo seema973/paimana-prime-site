@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Noto Sans', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -46,6 +49,16 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        gov: {
+          green: "hsl(var(--gov-green))",
+          "green-foreground": "hsl(var(--gov-green-foreground))",
+          orange: "hsl(var(--gov-orange))",
+          "orange-foreground": "hsl(var(--gov-orange-foreground))",
+          navy: "hsl(var(--gov-navy))",
+        },
+        section: {
+          bg: "hsl(var(--section-bg))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
