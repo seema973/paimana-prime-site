@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
@@ -36,14 +36,14 @@
 
     --radius: 0.5rem;
 
-    /* Custom PAIMANA tokens */
-    --gov-green: 145 63% 32%;
+    /* Custom PAIMANA tokens - Government of India style */
+    --gov-green: 120 75% 28%; /* India Green #138808 */
     --gov-green-foreground: 0 0% 100%;
     --gov-orange: 24 95% 53%;
     --gov-orange-foreground: 0 0% 100%;
-    --gov-navy: 230 60% 28%;
+    --gov-navy: 240 100% 25%; /* Navy blue #000080 */
     --section-bg: 220 20% 97%;
-    --hero-overlay: 230 60% 20%;
+    --hero-overlay: 0 0% 15%; /* Neutral dark overlay - no blue tint */
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -87,8 +87,13 @@
 }
 
 @layer base {
-  * {
+  *:not(img) {
     @apply border-border;
+  }
+  img {
+    border: none;
+    display: block;
+    vertical-align: middle;
   }
   body {
     @apply bg-background text-foreground font-sans;
@@ -98,13 +103,42 @@
 
 @layer utilities {
   .section-heading {
-    @apply text-2xl font-bold text-primary border-l-4 border-accent pl-3;
+    @apply text-2xl font-bold text-foreground border-l-4 border-gov-green pl-3;
   }
   .gov-gradient {
     background: linear-gradient(135deg, hsl(var(--gov-green)), hsl(var(--gov-orange)));
   }
   .hero-overlay {
-    background: linear-gradient(to top, hsl(var(--hero-overlay) / 0.85), hsl(var(--hero-overlay) / 0.3));
+    background: linear-gradient(to top, hsl(var(--hero-overlay) / 0.6), hsl(var(--hero-overlay) / 0.15));
+  }
+  .key-services-section {
+    background-color: hsl(220 18% 96%);
+    position: relative;
+    overflow: hidden;
+  }
+  .key-services-section::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    left: -120px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 1px solid hsl(220 10% 88%);
+    box-shadow: 0 0 0 24px transparent, 0 0 0 25px hsl(220 10% 88%), 0 0 0 48px transparent, 0 0 0 49px hsl(220 10% 90%);
+    pointer-events: none;
+  }
+  .key-services-section::after {
+    content: '';
+    position: absolute;
+    bottom: -120px;
+    right: -120px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 1px solid hsl(220 10% 88%);
+    box-shadow: 0 0 0 24px transparent, 0 0 0 25px hsl(220 10% 88%), 0 0 0 48px transparent, 0 0 0 49px hsl(220 10% 90%);
+    pointer-events: none;
   }
 }
 
@@ -115,4 +149,8 @@
 
 .animate-ticker {
   animation: ticker 30s linear infinite;
+}
+
+.animate-ticker-paused {
+  animation-play-state: paused;
 }

@@ -38,8 +38,8 @@ const CoreValues = () => {
               key={index}
               className="bg-card border border-border rounded-lg p-6 hover:shadow-md transition-shadow"
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <value.icon className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 rounded-full bg-[hsl(var(--gov-green)/0.2)] flex items-center justify-center mb-4">
+                <value.icon className="w-6 h-6 text-gov-green" />
               </div>
               <h3 className="font-bold text-foreground mb-2">{value.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">

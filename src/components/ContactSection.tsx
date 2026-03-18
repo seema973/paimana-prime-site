@@ -12,13 +12,13 @@ const ContactSection = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div className="space-y-3">
             <div className="flex items-start gap-3">
-              <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+              <MapPin className="w-5 h-5 text-gov-navy mt-0.5 shrink-0" />
               <div>
                 <p className="text-sm text-foreground">
                   Sankhyiki Bhawan, GPOA Building, CBD Shahdara,
                   Near Karkardomma Court, Delhi - 110032
                 </p>
-                <a href="#" className="text-sm text-gov-orange font-medium hover:underline">
+                <a href="#" className="text-sm text-gov-green font-medium hover:underline">
                   Get Directions
                 </a>
               </div>
@@ -26,14 +26,14 @@ const ContactSection = () => {
           </div>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <Phone className="w-5 h-5 text-primary shrink-0" />
+              <Phone className="w-5 h-5 text-gov-navy shrink-0" />
               <div>
                 <p className="text-sm text-foreground">Helpline (IND) 1800 14556</p>
                 <p className="text-xs text-muted-foreground">10:00 am to 6:00 pm IST</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Mail className="w-5 h-5 text-primary shrink-0" />
+              <Mail className="w-5 h-5 text-gov-navy shrink-0" />
               <p className="text-sm text-foreground">doanna.cursi@example.com</p>
             </div>
           </div>
