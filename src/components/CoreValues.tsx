@@ -29,8 +29,8 @@ const values = [
 
 const CoreValues = () => {
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4">
+    <section className="py-16 core-values-section">
+      <div className="container mx-auto px-4 relative z-10">
         <h2 className="section-heading mb-10">Our Core Values</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {values.map((value, index) => (

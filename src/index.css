@@ -140,6 +140,35 @@
     box-shadow: 0 0 0 24px transparent, 0 0 0 25px hsl(220 10% 88%), 0 0 0 48px transparent, 0 0 0 49px hsl(220 10% 90%);
     pointer-events: none;
   }
+  .core-values-section {
+    background-color: hsl(220 18% 96%);
+    position: relative;
+    overflow: hidden;
+  }
+  .core-values-section::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    left: -120px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 1px solid hsl(220 10% 88%);
+    box-shadow: 0 0 0 24px transparent, 0 0 0 25px hsl(220 10% 88%), 0 0 0 48px transparent, 0 0 0 49px hsl(220 10% 90%);
+    pointer-events: none;
+  }
+  .core-values-section::after {
+    content: '';
+    position: absolute;
+    bottom: -120px;
+    right: -120px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 1px solid hsl(220 10% 88%);
+    box-shadow: 0 0 0 24px transparent, 0 0 0 25px hsl(220 10% 88%), 0 0 0 48px transparent, 0 0 0 49px hsl(220 10% 90%);
+    pointer-events: none;
+  }
 }
 
 @keyframes ticker {
