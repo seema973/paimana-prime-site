@@ -1,4 +1,5 @@
-import { ExternalLink, Accessibility } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { ExternalLink } from "lucide-react";
 import serviceProjectImg from "@/assets/service-project-monitoring.png";
 import servicePerformanceImg from "@/assets/service-performance.png";
 import serviceNieStateImg from "@/assets/service-nie-state.png";
@@ -34,18 +35,45 @@ const services = [
 ];
 
 const KeyServices = () => {
+  const accessibilityContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const moveTrigger = () => {
+      const trigger = document.querySelector(".uw-widget-custom-trigger");
+      const container = accessibilityContainerRef.current;
+      if (trigger && container && !container.contains(trigger)) {
+        container.appendChild(trigger);
+        return true;
+      }
+      return false;
+    };
+
+    if (moveTrigger()) return;
+
+    const observer = new MutationObserver(() => {
+      if (moveTrigger()) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    const timer = setInterval(() => {
+      if (moveTrigger()) {
+        clearInterval(timer);
+        observer.disconnect();
+      }
+    }, 100);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(timer);
+    };
+  }, []);
+
   return (
     <section className="py-16 key-services-section">
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex items-center justify-between mb-10">
+        <div className="flex items-start justify-between mb-10">
           <h2 className="section-heading mb-0">Key Services</h2>
-          <button
-            type="button"
-            className="w-10 h-10 rounded-full bg-gov-navy flex items-center justify-center text-white hover:bg-gov-navy/90 transition-colors shrink-0"
-            aria-label="Accessibility options"
-          >
-            <Accessibility className="w-5 h-5" />
-          </button>
+          <div className="relative shrink-0 w-10 h-10" ref={accessibilityContainerRef} />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (

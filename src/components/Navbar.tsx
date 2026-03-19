@@ -15,21 +15,26 @@ const Navbar = () => {
             alt="Ministry of Statistics and Programme Implementation, Government of India"
             className="h-14 md:h-16 w-auto object-contain"
           />
+          <span className="inline-block sm:hidden h-10 w-px bg-border self-center flex-shrink-0" aria-hidden />
+          <span className="hidden sm:inline-block h-10 w-px bg-border self-center flex-shrink-0" aria-hidden />
           <img
             src={logoDataForDevelopment}
             alt="Data for Development"
             className="h-12 md:h-14 w-auto object-contain hidden sm:block"
           />
+          <span className="hidden sm:inline-block h-10 w-px bg-border self-center flex-shrink-0" aria-hidden />
           <img
             src={logoSwachhBharat}
             alt="Swachh Bharat Abhiyan - Clean India Mission"
             className="h-12 md:h-14 w-auto object-contain hidden sm:block"
           />
+          <span className="hidden sm:inline-block h-10 w-px bg-border self-center flex-shrink-0" aria-hidden />
           <img
             src={logoPaimana}
             alt="PAIMANA - IPMD One-Stop Infrastructure Portal"
-            className="h-12 md:h-16 w-auto object-contain"
+            className="h-10 md:h-12 w-auto object-contain"
           />
+          <span className="hidden sm:inline-block h-10 w-px bg-border self-center flex-shrink-0" aria-hidden />
           <img
             src={logoStaySafeOnline}
             alt="Stay Safe Online"

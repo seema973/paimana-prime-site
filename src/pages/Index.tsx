@@ -14,11 +14,13 @@ const Index = () => {
       <GovHeader />
       <Navbar />
       <AnnouncementTicker />
-      <HeroSection />
-      <KeyServices />
-      <AboutSection />
-      <CoreValues />
-      <ContactSection />
+      <main id="main">
+        <HeroSection />
+        <KeyServices />
+        <AboutSection />
+        <CoreValues />
+        <ContactSection />
+      </main>
       <Footer />
     </div>
   );

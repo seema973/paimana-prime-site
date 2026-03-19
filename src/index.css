@@ -183,3 +183,76 @@
 .animate-ticker-paused {
   animation-play-state: paused;
 }
+
+/* UX4G accessibility widget - trigger inside Key Services section */
+.key-services-section .uw-widget-custom-trigger {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  left: auto !important;
+}
+.uw-widget-custom-trigger {
+  background-color: #0a3372 !important;
+}
+.uwaw .second-panel {
+  background-color: #0a3372 !important;
+}
+.uwaw .feature-active .uwaw-features__item__name,
+.uwaw .feature-active .uwaw-features__item__icon .ux4g-icon {
+  color: #0a3372 !important;
+}
+.uwaw .feature-active .icon-bigger-text,
+.uwaw .feature-active .icon-small-text,
+.uwaw .feature-active .icon-line-hight,
+.uwaw .feature-active .icon-hide-images,
+.uwaw .feature-active .icon-dyslexia-font,
+.uwaw .feature-active .icon-cursor,
+.uwaw .feature-active .icon-highlight-links,
+.uwaw .feature-active .icon-text-spacing,
+.uwaw .feature-active .icon-moon,
+.uwaw .feature-active .icon-sun,
+.uwaw .feature-active .icon-invert,
+.uwaw .feature-active .icon-speaker,
+.uwaw .feature-active .icon-adhd-friendly {
+  background-color: #0a3372 !important;
+}
+.uwaw .feature-active .uwaw-features__item__i {
+  border-color: #0a3372 !important;
+  box-shadow: 0 0 0 5px rgba(10, 51, 114, 0.1) !important;
+}
+.uwaw .tick-active {
+  background-color: #0a3372 !important;
+}
+.uwaw .uwaw-features__step.active {
+  background: #0a3372 !important;
+}
+.uwaw button:focus,
+.uwaw button:hover {
+  border-color: #0a3372 !important;
+  outline-color: #0a3372 !important;
+  background-color: rgba(10, 51, 114, 0.08) !important;
+}
+.uwaw .h-scroll::-webkit-scrollbar-thumb {
+  background-color: #0a3372 !important;
+}
+
+/* Reset All Settings button - light blue instead of light purple */
+.uwaw .btn-reset-all,
+.uwaw .copyrights-accessibility .btn-reset-all {
+  background-color: #d4e4f7 !important;
+  color: #0a3372 !important;
+  border: 1px solid #5a8ac8 !important;
+}
+.uwaw .btn-reset-all:hover,
+.uwaw .btn-reset-all:focus,
+.uwaw .copyrights-accessibility .btn-reset-all:hover,
+.uwaw .copyrights-accessibility .btn-reset-all:focus {
+  background-color: #b8d4ef !important;
+  color: #0a3372 !important;
+  border-color: #0a3372 !important;
+}
+.uwaw .btn-reset-all .reset-icon,
+.uwaw .btn-reset-all .reset-btn-text {
+  color: #0a3372 !important;
+}
